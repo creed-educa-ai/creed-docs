@@ -1,0 +1,8 @@
+# Fim de linha LF no repositório e no working tree, em qualquer sistema — o mesmo
+# acordo do creed-ai-context. Tem precedência sobre core.autocrlf.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.svg text
+*.ico binary

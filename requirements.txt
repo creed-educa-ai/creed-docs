@@ -1,0 +1,8 @@
+# Versões travadas: o build de hoje e o de daqui a seis meses geram o mesmo site.
+#
+# Material for MkDocs entrou em manutenção em 2025-11 e o suporte termina em
+# 2026-11-05. O site é HTML estático, então nada quebra nessa data. A versão
+# 9.7.7 já exige mkdocs<2, o que protege da reescrita incompatível do MkDocs 2.0.
+# O sucessor é o Zensical, que lê o mesmo mkdocs.yml (ver README → "Trocar de gerador").
+mkdocs-material==9.7.7
+pymdown-extensions==12.1

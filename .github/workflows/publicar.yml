@@ -1,0 +1,55 @@
+# Constrói o site em todo PR e publica no GitHub Pages a cada merge na main.
+#
+# O build roda com --strict: link interno quebrado ou âncora inexistente vira
+# erro, e o PR não passa. É o "links internos funcionam" do checklist de PR,
+# cobrado pela máquina.
+#
+# Requisito único do lado do GitHub: Settings → Pages → Source = "GitHub Actions".
+name: Publicar
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Dois deploys simultâneos brigariam pelo mesmo site; o mais novo vence.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Construir o site (links conferidos)
+        run: mkdocs build --strict
+
+      # Só o que vai para o ar sobe como artefato: PR constrói e confere, não publica.
+      - if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  publicar:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v5

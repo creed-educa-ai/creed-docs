@@ -1,0 +1,6 @@
+# Saída do build: quem publica é o CI, nunca um commit.
+site/
+
+.venv/
+__pycache__/
+.DS_Store

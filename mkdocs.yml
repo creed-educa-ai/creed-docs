@@ -1,0 +1,121 @@
+# Site de padrões do CREED.ai Educa — publicado no GitHub Pages pelo workflow
+# .github/workflows/publicar.yml. Rodar local: ver README.md.
+#
+# Só recursos que o Zensical (sucessor do Material for MkDocs) também lê: nenhum
+# plugin além da busca. Assim a troca de gerador é uma linha no CI, não uma
+# migração de conteúdo.
+
+site_name: CREED · Padrões do time
+site_url: https://creed-educa-ai.github.io/creed-docs/
+site_description: >-
+  Padrões de código, arquitetura, git e processo do CREED.ai Educa.
+  É a fonte normativa do time: o que a review cobra está escrito aqui antes.
+repo_url: https://github.com/creed-educa-ai/creed-docs
+repo_name: creed-educa-ai/creed-docs
+edit_uri: edit/main/docs/
+copyright: CREED.ai Educa · AGES/PUCRS · 2026/2
+
+# A 8000 é do backend (uvicorn). Assim, `mkdocs serve` roda junto com ele.
+dev_addr: 127.0.0.1:8001
+
+theme:
+  name: material
+  language: pt-BR
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-night
+        name: Usar tema escuro
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: deep purple
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Usar tema claro
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search:
+      lang: pt
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+# Com `mkdocs build --strict` (o CI usa), qualquer aviso derruba o build:
+# link interno quebrado e âncora inexistente não chegam ao ar.
+validation:
+  links:
+    not_found: warn
+    anchors: warn
+    absolute_links: warn
+    unrecognized_links: warn
+
+nav:
+  - Início: index.md
+  - Começando:
+      - comecando/index.md
+      - Como uma tarefa chega até você: comecando/fluxo-da-tarefa.md
+      - Quem é quem: comecando/equipe.md
+  - Git e PR:
+      - git/index.md
+      - Commits: git/commits.md
+      - Pull request: git/pull-request.md
+      - O que a review cobra: git/revisao.md
+  - Arquitetura:
+      - arquitetura/index.md
+      - Backend: arquitetura/backend.md
+      - Frontend: arquitetura/frontend.md
+      - Contrato front ↔ back: arquitetura/contrato.md
+      - Banco e migrations: arquitetura/banco.md
+  - Código:
+      - codigo/index.md
+      - Idioma e nomes: codigo/idioma-e-nomes.md
+      - Testes e qualidade local: codigo/testes.md
+      - Formulários: codigo/formularios.md
+      - UI e responsividade: codigo/ui.md
+  - Processo:
+      - processo/index.md
+      - Definition of Ready: processo/definition-of-ready.md
+      - Definition of Done: processo/definition-of-done.md
+      - Premissas: processo/premissas.md
+      - IA no projeto: processo/ia.md
+  - Tutoriais:
+      - tutoriais/index.md
+      - Criar um domínio no back: tutoriais/criar-dominio.md
+      - Criar uma feature no front: tutoriais/criar-feature.md
+      - Mudar o banco numa tarefa: tutoriais/mudar-o-banco.md
+      - Abrir um PR: tutoriais/abrir-pr.md
+  - Referência:
+      - referencia/index.md
+      - Glossário: referencia/glossario.md
+      - Decisões (ADRs): referencia/decisoes.md
+      - Em consolidação: referencia/em-consolidacao.md
+      - Contribuir com esta doc: referencia/contribuir.md
